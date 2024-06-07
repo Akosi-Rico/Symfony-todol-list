@@ -6,19 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Person;
+use Doctrine\ORM\EntityManagerInterface;
 
 class BlogController extends AbstractController
 {
     #[Route('/blogs', name: 'app_blog')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        // return $this->json([
-        //     'message' => 'Welcome to your new controller!',
-        //     'path' => 'src/Controller/BlogController.php',
-        // ]);
-        $number = random_int(0, 100);
+        $person = $entityManager->getRepository(Person::class);
         return $this->render('views/index.html.twig', [
-            'number' => 1,
+            'persons' => $person->findAll(),
         ]);
     }
 }
