@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Person;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
-
 class BlogController extends AbstractController
 {
     private $router;
@@ -21,7 +20,7 @@ class BlogController extends AbstractController
     }
 
     #[Route('/blogs', name: 'app_blog')]
-    public function index(Request $request,EntityManagerInterface $entityManager ): Response
+    public function index(Request $request,EntityManagerInterface $entityManager): Response
     {
         $person = $entityManager->getRepository(Person::class);
         return $this->render('views/index.html.twig', [
@@ -36,7 +35,7 @@ class BlogController extends AbstractController
     {
         try {
             $entityManager->beginTransaction();
-          
+
             $person = $entityManager->getRepository(Person::class)->find($request->request->get("id"));
             if (empty($person)) {
                 throw $this->createNotFoundException('Entity not found.');
@@ -64,6 +63,7 @@ class BlogController extends AbstractController
             if (empty($request->request->get("id"))) {
                 $person = new Person();
             }
+
             $person->setName($request->request->get("name"));
             $person->setAge($request->request->get("age"));
             $person->setOccupation($request->request->get("occupation"));

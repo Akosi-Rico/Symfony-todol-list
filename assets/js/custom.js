@@ -27,6 +27,7 @@ $(document).on('click', '.detail', function() {
     $("#occupation").val($(this).attr("data-occupation"));
     $('#submit').attr('data-mode', (!$(this).attr("data-id") ? "insert" : "update"));
     $('#submit').attr('data-id', (!$(this).attr("data-id") ? null : $(this).attr("data-id")));
+    $("#staticBackdropLabel").text(!$(this).attr("data-id") ? "Create Data Form" : "Update Data Form");
 });
 
 $(document).on('click', '#submit', function() {
