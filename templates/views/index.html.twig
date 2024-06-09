@@ -1,13 +1,17 @@
-{# templates/index.html.twig #}
 {% extends 'layouts/app.html.twig' %}
 
 {% block title %}Symfony To Do List - Akosi Rico{% endblock %}
 
 {% block body %}
+{% include 'modal/info.html.twig' %}
+
 <div class="container">
-    <div class="row">
+    <div class="row"> 
         <div class="col-md-12" >
             <h1>To Do List</h1>
+             <button type="button" class="btn btn-sm btn-info detail" style="margin-bottom:5px; color:white" data-url="{{ updateDataUrl }}" data-mode="insert">
+                Create New Record
+            </button>
             <table class="table table-bordered table-striped table-hover tables-responsive text-center">
                 <thead>
                     <tr>
@@ -15,15 +19,22 @@
                         <th scope="col">Fullname</th>
                         <th scope="col">Age</th>
                         <th scope="col">Occupation</th>
+                        <th scope="col">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                    {% for person in persons %}
                     <tr>
-                        <th  class="rico" data-id="{{ person.id }}">{{ person.id }}</th>
+                        <th>{{ person.id }}</th>
                         <td>{{ person.name }}</td>
                         <td>{{ person.age }}</td>
                         <td>{{ person.occupation }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger removeData" data-id="{{ person.id }}" data-url="{{ removeDataUrl }}">Remove</button>
+                            <button type="button" class="btn btn-sm btn-primary detail" data-id="{{ person.id }}" data-name="{{ person.name }}" data-age="{{ person.age }}" data-occupation="{{ person.occupation }}"  data-url="{{ updateDataUrl }}">
+                                View
+                            </button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
